@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleLike, deleteProduct } from '../store/productsSlice';
 import { useRouter } from 'next/router';
+import Image from 'next/image';  // Импортируем Image из next/image
 
 type ProductCardProps = {
   product: {
@@ -31,7 +32,14 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div onClick={handleClick} style={{ cursor: 'pointer', height: '200px', padding: '10px', border: '1px solid #ccc' }}>
-      <img src={product.imageUrl} alt={product.title} style={{ width: '100%', height: '100px', objectFit: 'cover' }} />
+      {/* Заменяем <img> на <Image /> */}
+      <Image
+        src={product.imageUrl} // источник изображения
+        alt={product.title}     // описание
+        width={200}             // указываем ширину
+        height={100}            // указываем высоту
+        objectFit="cover"       // для корректного обрезания изображения
+      />
       <h3>{product.title}</h3>
       <button onClick={handleLike} style={{ color: product.liked ? 'red' : 'gray' }}>❤️</button>
       <button onClick={handleDelete}>🗑️</button>
